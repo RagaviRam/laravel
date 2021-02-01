@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\mainController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -40,10 +41,25 @@ Route::get('/users', [mainController::class, 'studentLists']) ->name('student_li
 
 
 
-Route::get('/form', [UserController::class, 'create']);
-Route::post('/data', [UserController::class, 'store']) -> name('user_details');
-Route::get('/userList', [UserController::class, 'index']) ->name('list');
-Route::get('/edit', [UserController::class, 'edit']) ->name('edit_form');
+Route::get('/create', [UserController::class, 'create']);
+Route::post('/store', [UserController::class, 'store']) -> name('user_details');
+Route::get('/list', [UserController::class, 'index']) ->name('list');
+Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit');
+Route::put('update/{id}',[UserController::class,'update'])->name('update');
+Route::delete('destroy/{id}',[UserController::class,'destroy'])->name('delete');
+
+
+
+
+Route::get('/create', [EmployeeController::class, 'create']);
+Route::post('/store', [EmployeeController::class, 'store']) -> name('employee_details');
+Route::get('/list', [EmployeeController::class, 'index']) ->name('list');
+Route::get('edit/{id}', [EmployeeController::class, 'edit'])->name('edit');
+Route::put('update/{id}', [EmployeeController::class, 'update'])->name('update');
+
+
+
+
 
 
 

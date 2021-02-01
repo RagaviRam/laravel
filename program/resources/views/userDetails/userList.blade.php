@@ -15,8 +15,14 @@
         <td>{{$data->firstname.$data->lastname}}</td>
         <td>{{$data->email}}</td>
         <td>{{$data->password}}</td>
-        <td><form action ="{{('edit_form')}}"><input name="submit" type="submit" value="Edit" ></form></td>
-        <td><form><input name="submit" type="submit" value="Delete" ></form></td>
+        <td><a href ="{{route('edit',['id'=>$data->id])}}"><input name="submit" type="submit" value="Edit" ></a></td>
+        <td>
+        <form action = "{{route('delete',['id'=>$data->id])}}" method ="post">
+        @csrf
+        @method('DELETE')
+        <input name="submit" type="submit" value="Delete" >
+        </form>
+        </td>
     </tr>
     @empty
     <p>there is no records</p>
