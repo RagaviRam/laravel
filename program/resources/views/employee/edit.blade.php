@@ -51,9 +51,9 @@
                 <div class='col-6'><label  class="text-primary"><b>Gender:</b></label>
                 </div>
                 <div class='col-6'>
-                    <input type="radio" value= "{{$data->gender}}" name="gender"><label><b>Male</b></label>
-                    <input type="radio" value= "{{$data->gender}}" name="gender"><label><b>Female</b></label>
-                    <input type="radio" value= "{{$data->gender}}" name="gender"><label><b>Others</b></label>
+                    <input type="radio" value= "male" {{$data['gender'] == 'male' ? 'checked': ''}} name="gender" ><label><b>Male</b></label>
+                    <input type="radio" value=  "female" {{$data['gender'] == 'female' ? 'checked': ''}} name="gender" checked><label><b>Female</b></label>
+                    <input type="radio" value=  "others" {{$data['gender'] == 'others' ? 'checked': ''}} name= "gender"><label><b>Others</b></label>
                 </div>
                 <div class='col-lg-6'><label  class="text-primary"><b>City:</b></label>
                 </div>
@@ -63,26 +63,32 @@
                 </div>
                 <div class='col-6'>
                     <select value= "{{$data->age}}" name="age">
-                        <option name="age" >--Select ur age--</option>
+                    @foreach ($age as $item => $value) 
+                            <option name ="age" value='{{$item}}'>{{$value}}</option>
+                    @endforeach
                     </select>
                 </div>
                 <div class='col-6'><label class="text-primary"><b>State:</b></label>
                 </div>
                 <div class='col-6'>
                     <select value= "{{$data->state}}" name="state">
-                    <option name="state" >--Select ur State--</option>
+                    @foreach ($state as $item=> $value) 
+                            <option name="state" value='{{$item}}'>{{$value}}</option>
+                    @endforeach
                     </select>
                 </div>
                 <div class='col-6'><label value= "{{$data->country}}" class="text-primary"><b>Country:</b></label>
                 </div>
                 <div class='col-6'>
-                    <select value= "{{$data->country}}" name="country">
-                    <option name="country" >--Select ur Country--</option>
+                    <select  name="country">
+                    @foreach ($country as $item=> $value) 
+                            <option name="country" value='{{$item}}'>{{$value}}</option>
+                    @endforeach
                     </select>
                 </div>
-                <div class='col-lg-6'><label value= "{{$data->phoneNumber}}" class="text-primary"><b>PhoneNumber:</b></label>
+                <div class='col-lg-6'><label  class="text-primary"><b>PhoneNumber:</b></label>
                 </div>
-                <div class='col-6'><input type="number" name="phne_num">
+                <div class='col-6'><input value= "{{$data->phoneNumber}}" type="number" name="phne_num">
                 </div>
                 <div class='col-lg-6'><label  class="text-primary"><b>Pincode:</b></label>
                 </div>

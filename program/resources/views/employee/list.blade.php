@@ -28,12 +28,11 @@
         <td>{{$data->pincode}}</td>
         <td>{{$data->dateofbirth}}</td>
         <td>{{$data->email}}</td>
-        <td>{{$data->password}}</td>
         <td><a href ="{{route('edit',['id'=>$data->id])}}"><input name="submit" type="submit" value="Edit" ></a></td>
         <td>
-        <form action = "" method ="post">
-        <!-- @csrf
-        @method('DELETE') -->
+        <form action= "{{route('delete',['id'=>$data->id])}}" method ="post" >
+        @csrf
+        @method('DELETE')
         <input name="submit" type="submit" value="Delete" >
         </form>
         </td>
@@ -41,4 +40,5 @@
     @empty
     <p>there is no records</p>
     @endforelse
+    {{$users->links()}}
 </table>
