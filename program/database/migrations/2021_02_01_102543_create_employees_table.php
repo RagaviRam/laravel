@@ -26,6 +26,8 @@ class CreateEmployeesTable extends Migration
             $table->integer('pincode');
             $table->date('dateofbirth');
             $table->string('email',191);
+            $table->string('hobbies');
+            $table->string('file');
             $table->string('password',191);
             $table->timestamps();
         });

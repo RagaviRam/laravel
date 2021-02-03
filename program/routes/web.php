@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\mainController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\EmployeeController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -52,14 +53,18 @@ Route::delete('destroy/{id}',[UserController::class,'destroy'])->name('delete');
 
 
 
-Route::get('/create', [EmployeeController::class, 'create']);
+Route::get('/create', [EmployeeController::class, 'create'])->middleware("auth"); 
 Route::post('/store', [EmployeeController::class, 'store']) -> name('employee_details');
-Route::get('/list', [EmployeeController::class, 'index']) ->name('list');
+Route::get('/list', [EmployeeController::class, 'index']) ->name('list')->middleware("auth");
 Route::get('edit/{id}', [EmployeeController::class, 'edit'])->name('edit');
 Route::put('update/{id}', [EmployeeController::class, 'update'])->name('update');
 Route::delete('destroy/{id}',[EmployeeController::class,'destroy'])->name('delete');
+Route::get('/upload', [EmployeeController::class,'upload']);
 
 
+
+/* Route::get('/create', [ImageController::class, 'create']);
+Route::post('/store', [ImageController::class, 'store']) -> name('file.image_details'); */
 
 
 
@@ -78,3 +83,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
+
+
+
+

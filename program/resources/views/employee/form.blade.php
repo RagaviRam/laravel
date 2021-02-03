@@ -14,7 +14,9 @@
         <header>
             <nav class="navbar navbar-expand-sm bg-danger navbar-light">
                 <a class="navbar-brand" href="#">
-                <h4 align ="center">EMPLOYEE MANAGEMENT</h4>
+                <a class="navbar-brand" href="#">
+                    <img src="{{ asset('public/images/doll.jpg') }}" alt="logo" style="width:50px;">
+                    
                 </a>
                 <ul class="navbar-nav ml-auto" align="left">
                     <li class="nav-item">
@@ -35,22 +37,23 @@
                 </ul>
             </nav>
         </header>
-        <form action="{{route('employee_details')}}" method="post">
+        <form action="{{route('employee_details')}}" method="post" enctype="multipart/form-data">
             @csrf
+
             <h2 align="center" style="padding-top:50px;">FORM</h2>
             <div style="margin-left: 500px;" class="row col-5">
-                <div class='col-lg-6'><label class="text-primary"><b>Firstname:</b></label>
+                <div class='col-lg-6'><label class="text-primary" ><b>Firstname:</b></label>
                 </div>
-                <div class='col-6'><input type="text" name="firstname">
+                <div class='col-6'><input type="text" name="firstname" value ="{{old('firstname')}}">
                     <div class="text-danger">
                         @if($errors->has('firstname'))
                         {{ $errors->first('firstname') }}
                         @endif
                     </div>
                 </div>
-                <div class='col-lg-6'><label class="text-primary"><b>Lastname:</b></label>
+                <div class='col-lg-6'><label class="text-primary" ><b>Lastname:</b></label>
                 </div>
-                <div class='col-6'><input type="text" name="lastname">
+                <div class='col-6'><input type="text" name="lastname" value ="{{old('lastname')}}">
                     <div class="text-danger">
                         @if($errors->has('lastname'))
                         {{ $errors->first('lastname') }}
@@ -61,9 +64,9 @@
                 <div class='col-6'><label class="text-primary"><b>Gender:</b></label>
                 </div>
                 <div class='col-6'>
-                    <input type="radio" name="gender" value="male"><label><b>Male</b></label>
-                    <input type="radio" name="gender" value="female"><label><b>Female</b></label>
-                    <input type="radio" name="gender" value="others"><label><b>Others</b></label>
+                    <input type="radio" name="gender" value="male" ("male" @if(old('gender') == "male") checked @endif><label><b>Male</b></label>
+                    <input type="radio" name="gender" value="female" ("male" @if(old('gender') == "female") checked @endif><label><b>Female</b></label>
+                    <input type="radio" name="gender" value="others" ("male" @if(old('gender') == "others") checked @endif><label><b>Others</b></label>
                     <div class="text-danger">
                         @if($errors->has('gender'))
                         {{ $errors->first('gender') }}
@@ -73,7 +76,7 @@
 
                 <div class='col-lg-6'><label class="text-primary"><b>City:</b></label>
                 </div>
-                <div class='col-6'><input type="text" name="city">
+                <div class='col-6'><input type="text" value ="{{old('lastname')}}" name="city" >
                     <div class="text-danger">
                         @if($errors->has('city'))
                         {{ $errors->first('city') }}
@@ -84,10 +87,10 @@
                 <div class='col-6'><label class="text-primary"><b>Age:</b></label>
                 </div>
                 <div class='col-6'>
-                    <select name="age">
-                        <option name="age"></option>
+                    <select name="age" >
+                        <option name="age" ></option>
                         @foreach ($age as $item => $value)
-                        <option name="age" value='{{$item}}'>{{$value}}</option>
+                        <option name="age" value='{{$item}}' @if(old('age') == $item) selected @endif>{{$value}}</option>
                         @endforeach
                     </select>
 
@@ -102,9 +105,9 @@
                 </div>
                 <div class='col-6'>
                     <select name="state">
-                        <option name="state"></option>
+                        <option name="state" ></option>
                         @foreach ($state as $item=> $value)
-                        <option name="state" value='{{$item}}'>{{$value}}</option>
+                        <option name="state" value='{{$item}}' @if(old('state') == $item) selected @endif>{{$value}}</option>
                         @endforeach
                     </select>
                     <div class="text-danger">
@@ -120,7 +123,7 @@
                     <select name="country">
                         <option name="country"></option>
                         @foreach ($country as $item=> $value)
-                        <option name="country" value='{{$item}}'>{{$value}}</option>
+                        <option name="country" value='{{$item}}' @if(old('age') == $item) selected @endif>{{$value}}</option>
                         @endforeach
                     </select>
                     <div class="text-danger">
@@ -132,7 +135,7 @@
 
                 <div class='col-lg-6'><label class="text-primary"><b>PhoneNumber:</b></label>
                 </div>
-                <div class='col-6'><input type="number" name="phne_num">
+                <div class='col-6'><input type="number" name="phne_num" value ="{{old('phne_num')}}">
                     <div class="text-danger">
                         @if($errors->has('phne_num'))
                         {{ $errors->first('phne_num') }}
@@ -142,7 +145,7 @@
 
                 <div class='col-lg-6'><label class="text-primary"><b>Pincode:</b></label>
                 </div>
-                <div class='col-6'><input type="number" name="pincode">
+                <div class='col-6'><input type="number" value ="{{old('pincode')}}" name="pincode">
                     <div class="text-danger">
                         @if($errors->has('pincode'))
                         {{ $errors->first('pincode') }}
@@ -152,7 +155,7 @@
 
                 <div class='col-lg-6'><label class="text-primary"><b>Date Of Birth:</b></label>
                 </div>
-                <div class='col-6'><input type="date" name="dob">
+                <div class='col-6'><input type="date" value ="{{old('dob')}}" name="dob">
                     <div class="text-danger">
                         @if($errors->has('dob'))
                         {{ $errors->first('dob') }}
@@ -162,14 +165,36 @@
 
                 <div class='col-lg-6'><label class="text-primary"><b>email Address:</b></label>
                 </div>
-                <div class='col-6'><input type="text" name="email">
+                <div class='col-6'><input type="text" value ="{{old('email')}}" name="email">
                     <div class="text-danger">
                         @if($errors->has('email'))
                         {{ $errors->first('email') }}
                         @endif
                     </div>
                 </div>
-
+                
+                <div class='col-lg-6'><label class = "text-primary"><b>Hobbies:</b></label>
+                </div>
+                <div class='col-6'>
+                       @foreach ($hobbies as $item=> $value)
+                        <input type="checkbox" name="hobbies[]" value='{{$item}}' @if(is_array(old('hobbies')) && in_array($item, old('hobbies'))) checked @endif>{{$value}}</option>
+                        @endforeach
+                        <div class="text-danger">
+                        @if($errors->has('hobbies'))
+                        {{ $errors->first('hobbies') }}
+                        @endif
+                    </div>
+                </div>
+                <div class='col-lg-6'><label class="text-primary"><b>File:</b></label>
+                </div>
+                <div class='col-6'><input value ="{{old('file')}}" type="file" name="file">
+                <div class="text-danger">
+                        @if($errors->has('file'))
+                        {{ $errors->first('file') }}
+                        @endif
+                    </div>
+                </div>
+                
                 <div class='col-lg-6'><label class="text-primary"><b>Password:</b></label>
                 </div>
                 <div class='col-6'><input type="password" name="password">

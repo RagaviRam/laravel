@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Employee;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class EmployeeController extends Controller
 {
@@ -18,11 +19,13 @@ class EmployeeController extends Controller
         }
         $state = ["TamilNadu", "Andhra Pradesh", "Kerala", "Orisa", "Karnataka"];
         $country = ["India", "UK"];
-        return View::make('employee.form', ['age' => $age, 'state' => $state, 'country' => $country]);
+        $hobbies = ["Singing","Dancing","Craft Making","Painting"];
+        return View::make('employee.form', ['age' => $age, 'state' => $state, 'country' => $country, 'hobbies'=> $hobbies]);
     }
     function store(Request $request)
     {
-
+        
+         
         $request->validate([
             'firstname' => 'required|min:6|max:10',
             'lastname' => 'required|min:6|max:10',
@@ -35,6 +38,8 @@ class EmployeeController extends Controller
             'pincode' => 'required|min:6',
             'dob' => 'required',
             'email' => 'email',
+            'hobbies' => 'required',
+            'file' => 'required|mimes:csv,txt,xlx,xls,pdf,docx,jpg,png,gif,svg,jpeg|max:2048',
             'password' => 'min:6|regex:/[@$!%*#?&]/'
         ], [
             'firstname.required' => 'Name is Required',
@@ -57,10 +62,18 @@ class EmployeeController extends Controller
             'pincode.min' =>  'Phone number should not be greater than 6',
             'dob.required' => "Date of birth is required",
             'email.required' => 'email is required',
+            'hobbies.required' => 'Select ur hobbies',
+            'file.required' => 'Image is Required',
+            'file.mimes' => 'Image must be supported format',
+            'file.max' => 'Ur image should be :max characters',
             'password.required' => 'password is required',
             'password.min' => 'password should be atleast :min characters',
             'password.regex' => 'password must be contain alphanumeric'
         ]);
+        $fileExtension = $request->file->extension();
+        $timeStamp=Carbon::now()->format('Y_m_d_H_i_s');
+        $fileName = $timeStamp.'.'.$fileExtension;
+        $request->file->storeAs('public/images', $fileName);
         $employee = new Employee;
         $employee->firstname = $request->firstname;
         $employee->lastname = $request->lastname;
@@ -73,6 +86,8 @@ class EmployeeController extends Controller
         $employee->pincode = $request->pincode;
         $employee->dateofbirth = $request->dob;
         $employee->email = $request->email;
+        $employee->hobbies = implode(',', $request->hobbies);
+        $employee->file = $fileName;
         $employee->password = Hash::make($request->password);
 
         $employee->save();
@@ -92,8 +107,9 @@ class EmployeeController extends Controller
         }
         $state = ["TamilNadu", "Andhra Pradesh", "Kerala", "Orisa", "Karnataka"];
         $country = ["India", "UK"];
+        $hobbies = ["Singing","Dancing","Craft Making","Painting"];
         $employee = Employee::find($id);
-        return View::make('employee.edit', ['data' => $employee, 'age' => $age, 'state' => $state, 'country' => $country]);
+        return View::make('employee.edit', ['data' => $employee, 'age' => $age, 'state' => $state, 'country' => $country,'hobbies' =>$hobbies]);
     }
     function update(Request $request, $id)
     {
@@ -109,6 +125,9 @@ class EmployeeController extends Controller
         $employee->pincode = $request->pincode;
         $employee->dateofbirth = $request->dob;
         $employee->email = $request->email;
+        $employee->hobbies = $request ->hobbies;
+        $employee->file = $request->file;
+        
         $employee->password = Hash::make($request->password);
         $employee->update();
         return redirect()->route('list')->with("success", "Ur details updated");
@@ -119,4 +138,5 @@ class EmployeeController extends Controller
         $employee->delete();
         return redirect()->route('list')->with("success", "deleted sucessfully");
     }
+
 }

@@ -52,7 +52,7 @@
                 </div>
                 <div class='col-6'>
                     <input type="radio" value= "male" {{$data['gender'] == 'male' ? 'checked': ''}} name="gender" ><label><b>Male</b></label>
-                    <input type="radio" value=  "female" {{$data['gender'] == 'female' ? 'checked': ''}} name="gender" checked><label><b>Female</b></label>
+                    <input type="radio" value=  "female" {{$data['gender'] == 'female' ? 'checked': ''}} name="gender" ><label><b>Female</b></label>
                     <input type="radio" value=  "others" {{$data['gender'] == 'others' ? 'checked': ''}} name= "gender"><label><b>Others</b></label>
                 </div>
                 <div class='col-lg-6'><label  class="text-primary"><b>City:</b></label>
@@ -64,7 +64,7 @@
                 <div class='col-6'>
                     <select value= "{{$data->age}}" name="age">
                     @foreach ($age as $item => $value) 
-                            <option name ="age" value='{{$item}}'>{{$value}}</option>
+                            <option name ="age" value='{{$item}}' {{ $data['age'] == $item ? 'selected': '' }}>{{$value}}</option>
                     @endforeach
                     </select>
                 </div>
@@ -73,7 +73,7 @@
                 <div class='col-6'>
                     <select value= "{{$data->state}}" name="state">
                     @foreach ($state as $item=> $value) 
-                            <option name="state" value='{{$item}}'>{{$value}}</option>
+                            <option name="state" value='{{$item}}' {{ $data['state'] == $item ? 'selected': '' }}>{{$value}}</option>
                     @endforeach
                     </select>
                 </div>
@@ -82,7 +82,7 @@
                 <div class='col-6'>
                     <select  name="country">
                     @foreach ($country as $item=> $value) 
-                            <option name="country" value='{{$item}}'>{{$value}}</option>
+                            <option name="country" value='{{$item}}' {{ $data['country'] == $item ? 'selected': '' }}>{{$value}}</option>
                     @endforeach
                     </select>
                 </div>
@@ -101,6 +101,17 @@
                 <div class='col-lg-6'><label class="text-primary"><b>email Address:</b></label>
                 </div>
                 <div class='col-6'><input value= "{{$data->email}}" type="text" name="email">
+                </div>
+                <div class='col-lg-6'><label class = "text-primary"><b>Hobbies:</b></label>
+                </div>
+                <div class='col-6'>
+                       @foreach ($hobbies as $item=> $value)
+                        <input type="checkbox" name="hobbies" value='{{$item}}' {{ $data ['hobbies'] == $item ? 'checked': '' }} >{{$value}}</option>
+                        @endforeach
+                </div>
+                <div class='col-lg-6'><label class="text-primary"><b>Image:</b></label>
+                </div>
+                <div class='col-6'><input type="file" name="image" value = "file">
                 </div>
                 <div class='col-lg-6'><label class="text-primary"><b>Password:</b></label>
                 </div>

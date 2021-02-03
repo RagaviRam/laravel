@@ -14,7 +14,10 @@
         <th> Pincode </th>
         <th> Date of Birth </th>
         <th> email </th>
+        <th> Hobbies </th>
+        <th> file </th>
         <th> Password </th>
+        
     </tr>
     @forelse ($users as $key => $data)
     <tr>
@@ -28,6 +31,9 @@
         <td>{{$data->pincode}}</td>
         <td>{{$data->dateofbirth}}</td>
         <td>{{$data->email}}</td>
+        <td>{{$data->hobbies}}</td>
+        <td>{{$data->file}}</td>
+
         <td><a href ="{{route('edit',['id'=>$data->id])}}"><input name="submit" type="submit" value="Edit" ></a></td>
         <td>
         <form action= "{{route('delete',['id'=>$data->id])}}" method ="post" >
