@@ -64,4 +64,26 @@ class UserController extends Controller
         $client->delete();
         return redirect()->route('list')->with("success","deleted sucessfully");
     }
+    function dashboardCreate(){
+        return view('authentication.dashboard');
+    }
+    function dashboardUser(){
+        $age = [];
+        for ($i = 18; $i < 100; $i++) {
+            $age[] = $i;
+        }
+        $state = ["TamilNadu", "Andhra Pradesh", "Kerala", "Orisa", "Karnataka"];
+        $country = ["India", "UK"];
+        $hobbies = ["Singing","Dancing","Craft Making","Painting"];
+        return View::make('authentication.user', ['age' => $age, 'state' => $state, 'country' => $country, 'hobbies'=> $hobbies]);
+    }
+    function dashboardManager(){
+        return view('authentication.manager');
+    }
+    function dashboardAdmin(){
+        return view('authentication.admin');
+    }
+    function dashboardNew(){
+        return view('authentication.new');
+    }
 }

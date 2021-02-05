@@ -14,8 +14,7 @@
         <header>
             <nav class="navbar navbar-expand-sm bg-danger navbar-light">
                 <a class="navbar-brand" href="#">
-                <a class="navbar-brand" href="#">
-                    <img src="{{ asset('public/images/doll.jpg') }}" alt="logo" style="width:50px;">
+                    <img src="{{ asset('storage/images/Doll.jpg') }}" alt="logo" style="width:50px;">
                     
                 </a>
                 <ul class="navbar-nav ml-auto" align="left">
@@ -176,9 +175,10 @@
                 <div class='col-lg-6'><label class = "text-primary"><b>Hobbies:</b></label>
                 </div>
                 <div class='col-6'>
-                       @foreach ($hobbies as $item=> $value)
-                        <input type="checkbox" name="hobbies[]" value='{{$item}}' @if(is_array(old('hobbies')) && in_array($item, old('hobbies'))) checked @endif>{{$value}}</option>
-                        @endforeach
+                <input type="checkbox" name="hobbies[]" value="singing"  {{ (is_array(old('hobbies')) && in_array("singing", old('hobbies'))) ? 'checked' : '' }} />Singing
+                <input type="checkbox" name="hobbies[]" value="dancing" {{ (is_array(old('hobbies')) && in_array("dancing", old('hobbies'))) ? 'checked' : '' }}   />Dancing
+                <input type="checkbox" name="hobbies[]" value="craft" {{ (is_array(old('hobbies')) && in_array("craft", old('hobbies'))) ? 'checked' : '' }}   />Craft Making
+                <input type="checkbox" name="hobbies[]" value="painting" {{ (is_array(old('hobbies')) && in_array("painting", old('hobbies'))) ? 'checked' : '' }}   />Painting
                         <div class="text-danger">
                         @if($errors->has('hobbies'))
                         {{ $errors->first('hobbies') }}
@@ -207,7 +207,7 @@
 
                 <div class='col-lg-6'><label class="text-primary"><b>Confirm Password:</b></label>
                 </div>
-                <div class='col-6'><input type="password" name="c_password">
+                <div class='col-6'><input type="password" name="password_confirmation">
                 </div>
                 <div class='col-6'></div>
                 <div class='col-6'><button class="p-3 mb-2 bg-success text-white" type="submit" style="width: 50%;"><b>Submit</b></button>

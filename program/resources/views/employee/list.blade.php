@@ -17,7 +17,7 @@
         <th> Hobbies </th>
         <th> file </th>
         <th> Password </th>
-        
+
     </tr>
     @forelse ($users as $key => $data)
     <tr>
@@ -32,15 +32,18 @@
         <td>{{$data->dateofbirth}}</td>
         <td>{{$data->email}}</td>
         <td>{{$data->hobbies}}</td>
-        <td>{{$data->file}}</td>
-
-        <td><a href ="{{route('edit',['id'=>$data->id])}}"><input name="submit" type="submit" value="Edit" ></a></td>
+        @if(strpos($data->file,'.pdf') !== false || strpos($data->file, '.csv') !== false || strpos($data->file, '.docx') !== false || strpos($data->file, '.xls')!==false)
+        <td><a href="{{asset('storage/images/'.$data->file)}}"><input name="submit" type="submit" value="download"></td>
+        @else
+        <td><img src="{{asset('storage/images/'.$data->file)}}" style="max-width:60px;"></td>
+        @endif
+        <td><a href="{{route('edit',['id'=>$data->id])}}"><input name="submit" type="submit" value="Edit"></a></td>
         <td>
-        <form action= "{{route('delete',['id'=>$data->id])}}" method ="post" >
-        @csrf
-        @method('DELETE')
-        <input name="submit" type="submit" value="Delete" >
-        </form>
+            <form action="{{route('delete',['id'=>$data->id])}}" method="post">
+                @csrf
+                @method('DELETE')
+                <input name="submit" type="submit" value="Delete">
+            </form>
         </td>
     </tr>
     @empty

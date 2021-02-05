@@ -2,7 +2,9 @@
 use App\Http\Controllers\mainController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ImageController;
+
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,9 +29,9 @@ Route::get('/greeting', function () {
 /*  Route::get('/', function () {
     return view('greeting', ['name' => 'James']);
 }); */
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('form');
-});
+}); */
 Route::post('/store', [mainController::class, 'store']) -> name('student_details'); 
 //Route::get('/nestedView', [mainController::class, 'nestedView']) ;
 Route::get('/if', [mainController::class, 'ifCondition']) ;
@@ -49,13 +51,16 @@ Route::get('/list', [UserController::class, 'index']) ->name('list');
 Route::get('edit/{id}', [UserController::class, 'edit'])->name('edit');
 Route::put('update/{id}',[UserController::class,'update'])->name('update');
 Route::delete('destroy/{id}',[UserController::class,'destroy'])->name('delete');
+Route::get('dashboard/create', [UserController::class, 'dashboardCreate'])->name('dashboard');
+Route::get('dashboard/user', [UserController::class, 'dashboardUser'])->name('dashboard_user');
+Route::get('dashboard/manager', [UserController::class, 'dashboardManager'])->name('dashboard_manager');
+Route::get('dashboard/admin', [UserController::class, 'dashboardAdmin'])->name('dashboard_admin');
 
 
 
-
-Route::get('/create', [EmployeeController::class, 'create'])->middleware("auth"); 
+Route::get('/create', [EmployeeController::class, 'create']) ;/* middleware=>['auth','admin'];  */
 Route::post('/store', [EmployeeController::class, 'store']) -> name('employee_details');
-Route::get('/list', [EmployeeController::class, 'index']) ->name('list')->middleware("auth");
+Route::get('/list', [EmployeeController::class, 'index']) ->name('list')/* ->middleware("auth") */;
 Route::get('edit/{id}', [EmployeeController::class, 'edit'])->name('edit');
 Route::put('update/{id}', [EmployeeController::class, 'update'])->name('update');
 Route::delete('destroy/{id}',[EmployeeController::class,'destroy'])->name('delete');
@@ -66,7 +71,8 @@ Route::get('/upload', [EmployeeController::class,'upload']);
 /* Route::get('/create', [ImageController::class, 'create']);
 Route::post('/store', [ImageController::class, 'store']) -> name('file.image_details'); */
 
-
+Route::resource('products', ProductController::class);
+Route::get('/dd/new', [ProductController::class, 'new']);
 
 
 
